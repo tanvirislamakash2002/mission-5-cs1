@@ -14,10 +14,17 @@ const createUsageLog: RequestHandler = async (req, res) => {
 
 const getUsageLogs: RequestHandler = async (req, res) => {
     try {
-        const log = await prisma.usageLog.findMany()
+        const log = await prisma.usageLog.findMany({
+            include: { user: true, equipment: true }
+        })
 
         res.send({ message: "logs", data: log })
     } catch (error) {
         res.send({ message: 'log creation error', error })
     }
+}
+
+export const logController = {
+    createUsageLog,
+    getUsageLogs
 }
