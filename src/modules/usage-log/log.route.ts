@@ -7,5 +7,6 @@ const logRouter = Router();
 
 logRouter.post('/', auth(), logController.createUsageLog)
 logRouter.get('/', logController.getUsageLogs)
+logRouter.patch('/:id', auth(), logController.updateUsageLog)
 
 export default logRouter;

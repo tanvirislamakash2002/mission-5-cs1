@@ -2,29 +2,20 @@ import { RequestHandler } from "express";
 import { prisma } from "../../lib/prisma";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import { userService } from "./user.service";
 
 const register: RequestHandler = async (req, res) => {
     const payload = req.body;
 
-    const hashPassword = await bcrypt.hash(payload.password, 10)
-
-    const user = await prisma.user.create({
-        data: { ...payload, password: hashPassword },
-    })
+    const user = await userService.register(payload)
+    
     res.send({ message: "Registered Successfully", data: user })
 }
 
 const login: RequestHandler = async (req, res) => {
     const { email, password } = req.body
 
-    const user = await prisma.user.findUnique({ where: { email } })
-
-    if (!user) return res.send({ message: "user not found" })
-
-    const matchPass = await bcrypt.compare(password, user.password)
-    if (!matchPass) return res.send({ message: "Invalid password" })
-
-    const token = await jwt.sign({ id: user.id, role: user.role }, 'verify', { expiresIn: '7d' })
+    const token = await userService.login(email, password)
 
     res.send({ message: 'Logged in successfully', token })
 }
