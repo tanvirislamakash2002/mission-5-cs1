@@ -23,7 +23,13 @@ export const auth = betterAuth({
             redirectURI: `${process.env.FRONTEND_URL}/api/auth/callback/github`
         }
     },
-    plugins:[
-        twoFactor()
+    plugins: [
+        twoFactor({
+            otpOptions: {
+                async sendOTP({ user, otp }, ctx) {
+                    console.log(user, otp);
+                },
+            }
+        })
     ]
 })
