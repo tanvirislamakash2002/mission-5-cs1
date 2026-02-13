@@ -44,7 +44,7 @@ model UsageLog {
   purpose   String
   notes     String?
 
-  // user User @relation(fields:[userId], references:[id])
+  user User @relation(fields:[userId], references:[id])
   equipment Equipment @relation(fields: [equipmentId], references: [id])
 
   createdAt DateTime @default(now())
@@ -67,6 +67,13 @@ model User {
   twoFactorEnabled Boolean?    @default(false)
   twofactors       TwoFactor[]
 
+  role       String?
+  banned     Boolean?  @default(false)
+  banReason  String?
+  banExpires DateTime?
+
+  usageLog UsageLog[]
+
   @@unique([email])
   @@map("user")
 }
@@ -81,6 +88,8 @@ model Session {
   userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  impersonatedBy String?
 
   @@unique([token])
   @@index([userId])
