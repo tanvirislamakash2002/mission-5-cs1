@@ -10,12 +10,22 @@ const resend = new Resend('re_4ZAcJ7SU_A7niP49oVm3PQ365kSnGCmfb');
 export const auth = betterAuth({
     appName: "lab log",
     baseURL: process.env.BETTER_AUTH_URL,
+    basePath: '/api/v1/auth',
     database: prismaAdapter(prisma, {
         provider: 'postgresql'
     }),
 
     trustedOrigins: [process.env.FRONTEND_URL!],
 
+    rateLimit: {
+        enabled: true,
+        window: 10,
+        max: 2
+    },
+
+    advanced: {
+        cookiePrefix: "lablog"
+    },
     emailAndPassword: {
         enabled: true,
         minPasswordLength: 3

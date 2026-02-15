@@ -11,7 +11,7 @@ app.use(cors({
 }))
 
 // better auth router
-app.all("/api/auth/*splat", toNodeHandler(auth));
+app.all("/api/v1/auth/*splat", toNodeHandler(auth));
 
 app.use(express.json())
 
