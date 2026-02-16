@@ -20,13 +20,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-  analytic,
-  team,
+  children
 }: Readonly<{
   children: React.ReactNode;
-  analytic: React.ReactNode;
-  team: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -40,10 +36,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar1></Navbar1>
-          <div className="flex w-full justify-around p-20">
-            {analytic}
-            {team}
-          </div>
           {children}
         </ThemeProvider>
       </body>

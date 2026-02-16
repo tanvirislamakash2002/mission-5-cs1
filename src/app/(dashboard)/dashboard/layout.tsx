@@ -12,12 +12,7 @@ const dashLayout = ({
 }>) => {
     return (
         <>
-            <nav className='flex justify-around w-full bg-blue-400'>
-                <ul>
-                    <li><Link href={"/next-level"}>next level</Link></li>
-                    <li>programming hero</li>
-                </ul>
-            </nav>
+
             <div className="flex w-full justify-around p-20">
                 {analytic}
                 {team}

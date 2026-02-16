@@ -9,4 +9,5 @@ const team = async() => {
     );
 };
 
+
 export default team;
